@@ -21,12 +21,15 @@ Channel
     .map{ row -> tuple(row.wikidata, row.smiles) }
     .set { molecules_ch }
 
-/** Prints the content of each set.
-* Calls the Chemistry Development Kit (CDK) manager from the bacting github.
+/** Prints the chemical formula of each smile, obtained from the CDK manager.
+* cdk:             Calls the Chemistry Development Kit (CDK) manager from the
+*                  bacting github.
+* ChemicalFormula: cdk.fromSMILES converts the smiles into the chemical
+*                  formula.
 *
 * @param molecules_ch     The set containing the wikidata and smiles variables.
-* @return                 A line will be printed, confirming the presence of
-*                         data.
+* @return                 A line will be printed, confirming the conversion of
+                          the smiles into the chemical formula
 */
 
 process obtainlogp {
@@ -34,7 +37,7 @@ process obtainlogp {
     set wikidata, smiles from molecules_ch
 
     exec:
-      println "${wikidata} has SMILES: ${smiles}"
       cdk = new CDKManager(".");
-
+      ChemicalFormula = cdk.fromSMILES("$smiles")
+      println "${ChemicalFormula}"
 }
