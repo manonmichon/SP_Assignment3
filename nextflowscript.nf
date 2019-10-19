@@ -1,5 +1,7 @@
 #!/usr/bin/env nextflow //defining a scripting language
 
+// Path in terminal: time /Users/manonmichon/nextflow run /Users/manonmichon/Documents/GitHub/SP_Assignment3/nextflowscript.nf
+
 // initialisation of required packages and package sources.
 @Grab(group='io.github.egonw.bacting', module='managers-cdk', version='0.0.9')
 @Grab(group='org.openscience.cdk', module='cdk-qsarmolecular', version='2.3')
@@ -25,9 +27,9 @@ import org.openscience.cdk.qsar.result.*;
 */
 
 Channel
-    .fromPath("/Users/manonmichon/Documents/GitHub/SP_Assignment3/short.tsv")
-    .splitCsv(header: ['wikidata', 'smiles'], sep:'\t')
-    .map{ row -> tuple(row.wikidata, row.smiles) }
+    .fromPath("/Users/manonmichon/Documents/GitHub/SP_Assignment3/query_medium.tsv")
+    .splitCsv(header: ['wikidata', 'smiles', 'isoSmiles'], sep:'\t')
+    .map{ row -> tuple(row.wikidata, row.smiles, row.isosmiles) }
     .set { molecules_ch }
 
 /** calculates the logP for each compound obtained on wikidata.
@@ -48,8 +50,10 @@ Channel
 */
 
 process obtainlogp {
+    maxForks 1
+
     input:
-    set wikidata, smiles from molecules_ch
+    set wikidata, smiles, isosmiles from molecules_ch
 
     exec:
       cdk = new CDKManager(".");
@@ -57,5 +61,5 @@ process obtainlogp {
 
       descriptor = new JPlogPDescriptor()
       logp = descriptor.calculate(ChemicalFormula.getAtomContainer()).value.doubleValue()
-      
+
 }
