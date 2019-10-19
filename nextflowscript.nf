@@ -1,8 +1,12 @@
 #!/usr/bin/env nextflow //defining a scripting language
 
+// initialisation of required packages and package sources.
+@Grab(group='io.github.egonw.bacting', module='managers-cdk', version='0.0.9')
+import net.bioclipse.managers.CDKManager
+
 /** A channel will communicate between different processes. The channel here
-* is created to communicate with the data file and the 'printSMILES' process
-* in order for the 'printSMILES' process to access the data.
+* is created to communicate with the data file and the 'obtainlogp' process
+* in order for the 'obtainlogp' process to access the data.
 *
 * fromPath: obtaining the desired data from a file using a file path.
 * splitCsv: splitting the obtained data into different columns.
@@ -17,16 +21,20 @@ Channel
     .map{ row -> tuple(row.wikidata, row.smiles) }
     .set { molecules_ch }
 
-/** Prints the content of each set
+/** Prints the content of each set.
+* Calls the Chemistry Development Kit (CDK) manager from the bacting github.
 *
 * @param molecules_ch     The set containing the wikidata and smiles variables.
 * @return                 A line will be printed, confirming the presence of
 *                         data.
+*/
 
-process printSMILES {
+process obtainlogp {
     input:
     set wikidata, smiles from molecules_ch
 
     exec:
       println "${wikidata} has SMILES: ${smiles}"
+      cdk = new CDKManager(".");
+
 }
