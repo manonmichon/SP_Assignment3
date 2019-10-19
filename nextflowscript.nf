@@ -28,8 +28,9 @@ import org.openscience.cdk.qsar.result.*;
 
 Channel
     .fromPath("/Users/manonmichon/Documents/GitHub/SP_Assignment3/query_medium.tsv")
-    .splitCsv(header: ['wikidata', 'smiles', 'isoSmiles'], sep:'\t')
+    .splitCsv(header: ['wikidata', 'smiles', 'isosmiles'], sep:'\t')
     .map{ row -> tuple(row.wikidata, row.smiles, row.isosmiles) }
+    .buffer( size: 50000, remainder: true)
     .set { molecules_ch }
 
 /** calculates the logP for each compound obtained on wikidata.
@@ -56,6 +57,8 @@ process obtainlogp {
     set wikidata, smiles, isosmiles from molecules_ch
 
     exec:
+
+      println "running.."
       cdk = new CDKManager(".");
       ChemicalFormula = cdk.fromSMILES("$smiles")
 
