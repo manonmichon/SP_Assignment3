@@ -6,7 +6,7 @@ The aim of this repository is to find out the logP of smiles collected from wiki
 # Files
 _getSMILES.rq_: This file contains the SPARQL query used to obtain the list of smiles found in ‘query_medium.tsv’ and ‘query_long.tsv’.
 
-_query_short.tsv_: A short tsv file containing 5 sets of a smile and a link to the wikidata page of the corresponding compound. Obtained from //source!!!//
+_query_short.tsv_: A short tsv file containing 5 sets of a smile and a link to the wikidata page of the corresponding compound. Obtained from <a href="https://github.com/egonw/scientificProgramming/tree/master/assignment%203"> the github of this course</a>.
 
 _query_medium.tsv_: A tsv file downloaded from wikidata using the query found in _getSMILES.rq_ with a limit of 1000 in order to test for file-input from wikidata and to test with a more varied dataset of smiles.
 
