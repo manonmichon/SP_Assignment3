@@ -27,10 +27,10 @@ import org.openscience.cdk.qsar.result.*;
 */
 
 Channel
-    .fromPath("/Users/manonmichon/Documents/GitHub/SP_Assignment3/query_medium.tsv")
+    .fromPath("/Users/manonmichon/Documents/GitHub/SP_Assignment3/query_long.tsv")
     .splitCsv(header: ['wikidata', 'smiles', 'isosmiles'], sep:'\t')
     .map{ row -> tuple(row.wikidata, row.smiles, row.isosmiles) }
-    .buffer( size: 50000, remainder: true)
+    .buffer( size: 3, remainder: true)
     .set { molecules_ch }
 
 /** calculates the logP for each compound obtained on wikidata.
@@ -54,7 +54,7 @@ process obtainlogp {
     maxForks 1
 
     input:
-    set wikidata, smiles, isosmiles from molecules_ch
+    each set from molecules_ch
 
     exec:
 
@@ -64,5 +64,6 @@ process obtainlogp {
 
       descriptor = new JPlogPDescriptor()
       logp = descriptor.calculate(ChemicalFormula.getAtomContainer()).value.doubleValue()
+      println "$logp"
 
 }
