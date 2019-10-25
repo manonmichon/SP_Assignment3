@@ -24,5 +24,5 @@ The nextflow script will calculate the logP values of all the smiles that are pr
 
 # References & Licenses
 <a href="https://github.com/manonmichon/SP_Assignment3/blob/master/LICENSE"> MIT license </a><br>
-Bioclipse, containing the CDK manager <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-10-397">article</a>/<a href="https://github.com/egonw/bacting">Bacting github</a>/<a href="https://github.com/cdk/cdk">CDK github</a>.<br>
+Bioclipse, containing the CDK manager: <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-10-397">article</a>/<a href="https://github.com/egonw/bacting">Bacting github</a>/<a href="https://github.com/cdk/cdk">CDK github</a>.<br>
 LogP calculation: <a href="https://link.springer.com/article/10.1186/s13321-018-0316-5">article</a>/<a href="https://github.com/cdk/cdk/blob/master/descriptor/qsarmolecular/src/main/java/org/openscience/cdk/qsar/descriptors/molecular/JPlogPDescriptor.java">github</a>.
