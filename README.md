@@ -4,7 +4,7 @@ This repository is part of an assignment for the course Scientific Programming i
 The aim of this repository is to find out the logP of smiles collected from wikidata and to monitor the effects of parallel computing while doing so. The smiles are obtained from wikidata using a SPARQL query. The downloaded tsv file is read into a nextflow script, which is then executed by calling it from the terminal. The calculations in the script are done by parallel computing.
 
 # Files
-_getSMILES.rq_: This file contains the SPARQL query used to obtain the list of smiles found in ‘query_medium.tsv’ and ‘query_long.tsv’.
+_getSMILES.rq_: This file contains the SPARQL query used to obtain the list of smiles found in ‘_query_medium.tsv_’ and ‘_query_long.tsv_’.
 
 _query_short.tsv_: A short tsv file containing 5 sets of a smile and a link to the wikidata page of the corresponding smile. Obtained from <a href="https://github.com/egonw/scientificProgramming/tree/master/assignment%203"> the github of this course</a>.
 
